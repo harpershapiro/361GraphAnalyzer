@@ -79,6 +79,7 @@ public class Movie {
 	public int numRatings(){
 		return ratings.size();
 	}
+
 	
 	/**
 	 * Returns a map view of the ratings
