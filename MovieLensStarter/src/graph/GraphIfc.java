@@ -1,3 +1,4 @@
+package graph;
 import java.util.List;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public interface GraphIfc<V> {
 	 * @param v A vertex in the graph
 	 * @throws IllegalArgumentException if either vertex does not occur in the graph.
 	 */
-	public void addEdge(V u, V v);	
+	public void addEdge(V u, V v) throws Exception;
 
 	/**
 	 * Returns the set of all vertices in the graph.
@@ -54,7 +55,7 @@ public interface GraphIfc<V> {
 	 * @return All neighbors of v in the graph.
 	 * @throws IllegalArgumentException if the vertex does not occur in the graph
 	 */
-	public List<V> getNeighbors(V v);	
+	public List<V> getNeighbors(V v) throws Exception;
 
 	/**
 	 * Determines whether the given vertex is already contained in the graph. The comparison
@@ -73,7 +74,7 @@ public interface GraphIfc<V> {
 	 * @return True if an edge exists between the two vertices
 	 * @throws IllegalArgumentException if either vertex does not occur in the graph
 	 */
-	public boolean edgeExists(V v, V u);
+	public boolean edgeExists(V v, V u) throws Exception;
 
 	/**
 	 * Returns the degree of the vertex. In a directed graph, this returns the outdegree of the
@@ -82,7 +83,7 @@ public interface GraphIfc<V> {
 	 * @return The degree of the vertex
 	 * @throws IllegalArgumentException if the vertex does not occur in the graph
 	 */
-	public int degree(V v);
+	public int degree(V v) throws Exception;
 	
 	/**
 	 * Returns a string representation of the graph. The string representation shows all
