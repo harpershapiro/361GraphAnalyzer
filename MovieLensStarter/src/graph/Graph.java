@@ -12,9 +12,11 @@ import java.util.Set;
 public class Graph<V> implements GraphIfc<V> {
 
 	private HashMap<V, ArrayList<V>> adjList;
+	private int size;
 
 	public Graph(){
-		adjList = new HashMap<V,ArrayList<V>>();
+	    adjList = new HashMap<V,ArrayList<V>>();
+	    size=0;
 	}
 
     /**
@@ -30,10 +32,7 @@ public class Graph<V> implements GraphIfc<V> {
 	 * @return The number of edges in the graph
 	 */
 	public int numEdges(){
-		int size=0;
-		for(V v : adjList.keySet()){
-			size+=adjList.get(v).size();
-		}
+
 		return size;
 	}
 	
@@ -42,6 +41,7 @@ public class Graph<V> implements GraphIfc<V> {
 	 */
 	public void clear(){
 		adjList.clear();
+		size=0;
 	}
 		
 	/** 
@@ -59,7 +59,8 @@ public class Graph<V> implements GraphIfc<V> {
 	 * @throws IllegalArgumentException if either vertex does not occur in the graph.
 	 */
 	public void addEdge(V u, V v){
-		adjList.get(u).add(v); //add v to u's adjacency list
+		adjList.get(u).add(v);//add v to u's adjacency list
+		size++;
 	}
 
 	/**
@@ -178,9 +179,6 @@ public class Graph<V> implements GraphIfc<V> {
 		System.out.println("Edge 2 to 3? " +graph.edgeExists(2,3));
 
 		System.out.println("Degree of 12: " + graph.degree(12));
-
-
-
 
 
 	}
