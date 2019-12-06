@@ -9,7 +9,7 @@ import java.util.Set;
  * @author Harper Shapiro
  * @param <V>
  */
-public class Graph<V> {//implements GraphIfc<V> {
+public class Graph<V> implements GraphIfc<V> {
 
 	private HashMap<V, ArrayList<V>> adjList;
 
