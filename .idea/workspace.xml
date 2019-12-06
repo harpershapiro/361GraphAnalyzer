@@ -2,38 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="999d149e-2d5c-4a33-8b44-ea905ce972a2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/MovieLensStarter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/MovieLensStarter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/analyzer/MovieLensAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/analyzer/MovieLensAnalyzer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/data/Movie.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/data/Movie.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/data/Reviewer.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/data/Reviewer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/graph/GraphAlgorithms.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/graph/GraphAlgorithms.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/movies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/movies.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/ratings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/ratings.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/tags.csv" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/ml-latest-small/tags.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/util/DataLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/util/DataLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/bin/util/Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/bin/util/Pair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/out/production/MovieLensStarter/Graph.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/out/production/MovieLensStarter/Graph.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/out/production/MovieLensStarter/GraphIfc.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/out/production/MovieLensStarter/GraphIfc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/out/production/MovieLensStarter/graph/GraphAlgorithms.class" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/out/production/MovieLensStarter/graph/GraphAlgorithms.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/analyzer/MovieLensAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/analyzer/MovieLensAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/data/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/data/Movie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/data/Reviewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/data/Reviewer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/graph/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/graph/GraphAlgorithms.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/graph/GraphAlgorithms.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/graph/GraphIfc.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/graph/GraphIfc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/movies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/movies.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/ratings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/ratings.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/tags.csv" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/ml-latest-small/tags.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/util/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/util/DataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/util/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/util/Pair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieLensStarter/src/util/PriorityQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/MovieLensStarter/src/util/PriorityQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,14 +14,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
-  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575531931422" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
