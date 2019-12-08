@@ -36,10 +36,10 @@ public class GraphAlgorithms {
 
     public static int[] dijkstrasAlgorithm(Graph<Integer> graph, int source){
         PriorityQueue Q = new PriorityQueue();
-        HashMap<Pair,Integer> dist = new HashMap<>();
+        HashMap<Integer,Integer> dist = new HashMap<>();
         //Set all dists to infinity
 
-        HashMap<Pair,Pair> prev = new HashMap<>(); //stores prev node on shortest path
+        HashMap<Integer,Integer> prev = new HashMap<>(); //stores prev node on shortest path
 
 //        dist[s] = 0
 //        for(v in V) []
@@ -61,5 +61,9 @@ public class GraphAlgorithms {
 
 
         return null;
+    }
+
+    public static void main(String[] args){
+        //test algs
     }
 }
