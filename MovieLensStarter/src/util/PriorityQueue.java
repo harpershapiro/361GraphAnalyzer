@@ -44,7 +44,12 @@ public class PriorityQueue {
     public void push(int priority, int element) {
         //check preconditions
         if(isPresent(element) || priority<0){
-            throw new AssertionError("Cannot add element to priority queue.");
+            if(priority<0){
+                throw new AssertionError("Cannot add element to priority queue. Priority was less than 0");
+            } else {
+                throw new AssertionError("Cannot add element to priority queue. Element was present");
+
+            }
         }
 
         //add new element, percolate up
@@ -63,8 +68,8 @@ public class PriorityQueue {
      *	</ul>
      *
      */
-
-    public void pop(){
+    //MADE SOME CHANGES TO THE RETURN TYPE HERE. Returns the pair we removed instead of nothing
+    public Pair pop(){
         //check preconditions
         if(isEmpty()){
             throw new AssertionError("Cannot pop from empty priority queue.");
@@ -74,8 +79,9 @@ public class PriorityQueue {
 
         //remove last element of heap (old root) and remake heap
         location.remove(heap.get(size()-1).element);
-        heap.remove(size()-1);
+        Pair removal = heap.remove(size()-1);
         pushDownRoot();
+        return removal;
     }
 
 
@@ -233,6 +239,9 @@ public class PriorityQueue {
 
     private int pushDown(int start_index) {
 
+        if(heap.size()<=1){
+            return 0; //heap is only 1 element
+        }
         //attempt to find a smallest child
         int currIndex = start_index;
         int currentPrio = heap.get(currIndex).priority;
