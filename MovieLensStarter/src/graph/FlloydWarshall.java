@@ -1,4 +1,4 @@
-package src.graph;
+package graph;
 import util.PriorityQueue;
 import util.Pair;
 import java.util.HashMap;
