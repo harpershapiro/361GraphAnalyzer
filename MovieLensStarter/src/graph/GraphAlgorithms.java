@@ -1,38 +1,62 @@
 package graph;
 import util.PriorityQueue;
 import util.Pair;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
 public class GraphAlgorithms {
-	// FILL IN
 
-    public static int[][] floydWarshall(Graph<Integer> graph){
-
-//        Q // a minimum priority queue
-//                dist // distance from s, initialize to infinity
-//        prev // previous node in the MST, initialize to null
-//
-//        dist[r] = 0 //some randomly chosen node in the graph
-//        for(v in V){
-//            Q.push(v, dist[v])
-//         }
-//
-//        while(Q not empty)
-//            u = Q.pop()// Node with the lowest edge cost
-//            for v in AdjacencyList(u){
-//                alt = w(u,v) // Is this better than what we've found so far?
-//                if(v is in Q and alt < dist[v]){
-//                    dist[v] = alt
-//                    prev[v] = u
-//                    Q.changePriority(v, alt)
-//                 }
-//            }
-//        }
-//    return dist, prev
-//
-        return null;
-    }
+	/**
+	 * Returns the shortest paths between vertices in a graph.
+	 * @param graph The graph to find paths for
+	 * @return 2D array holding shortest paths
+	 */
+	public static int[][] floydWarshall(Graph<Integer> graph){
+		int V = graph.numVertices();
+		int INF = 99999; 
+		// did this as opposed to Integer.MAX_VALUE to avoid
+		// spilling over to 0 when comparing distance
+		
+		//make a 2D array to hold the distances and initialize to infinite
+		int[][] dist = new int[V][V];
+		for (int[] row : dist) {
+			Arrays.fill(row, INF);
+		}
+		
+		// Since we have no weights, reinitialize distances
+		// using existence of edges in graph
+		int src = 0;
+		int dest = 0;
+		try {
+			for (Integer v : graph.getVertices()) {
+				for (Integer u : graph.getVertices()) {
+					if (graph.edgeExists(v,u)) {
+						dist[src][dest] = 1;
+					}
+					dest++;
+				}
+				src++;	
+			}
+		} catch (Exception e){
+			System.out.println("Invalid vertex encountered in Flloyd-Warshall.");
+			return null;
+		}
+		
+		// Generate shortest paths by comparing intermediate vertices
+		for (int i = 0; i < V; i++) {
+			for (int j = 0; j < V; j++) {
+				//optimization: ignore nodes that aren't connected by an edge
+				if (dist[i][j] == INF) continue;
+				for (int k = 0; k < V; k++) {
+					if (dist[i][j] + dist[j][k] < dist[i][k]) {
+						dist[i][k] = dist[i][j] + dist[j][k];
+					}
+				}
+			}
+		}
+      return dist;
+  }
 
     /**
      * Returns the shortest paths from source to other vertices in graph.
@@ -87,7 +111,7 @@ public class GraphAlgorithms {
 
     public static void main(String[] args){
         //test algs
-        Graph dtest = new Graph();
+        Graph<Integer> dtest = new Graph<Integer>();
         dtest.addVertex(5);
         dtest.addVertex(16);
         dtest.addVertex(12);
@@ -103,8 +127,10 @@ public class GraphAlgorithms {
         HashMap<Integer,Integer> prev = dijkstrasAlgorithm(dtest,5);
         for(Integer v : prev.keySet()){
             System.out.println("vertex: " + v + " previous: " + prev.get(v));
-
         }
+        
+        int[][] dists = floydWarshall(dtest);
+        System.out.println(Arrays.toString(dists));
 
     }
 }
