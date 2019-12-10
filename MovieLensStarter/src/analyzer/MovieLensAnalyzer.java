@@ -6,6 +6,7 @@ import util.DataLoader;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Scanner;
 
 
 /**
@@ -28,7 +29,13 @@ public class MovieLensAnalyzer {
 		String movieFile = "src/ml-latest-small/movies.csv";
 		String reviewFile = "src/ml-latest-small/ratings.csv";
 
-		Graph<Integer> movieGraph = constructGraph(1,movieFile,reviewFile);
+		DataLoader loader = new DataLoader();
+		loader.loadData(movieFile, reviewFile);
+
+		HashMap<Integer, Movie> movies = (HashMap)loader.getMovies();
+
+
+		Graph<Integer> movieGraph = constructGraph(1,loader);
 		System.out.println("Graph Consctructed. It has " + movieGraph.numVertices() + " Vertices and " + movieGraph.numEdges() + " Edges.");
 
 
@@ -36,8 +43,6 @@ public class MovieLensAnalyzer {
 		//create graph structure adjList or adjMatrix
 		//get user input for graph options
 		//parse data files, filling graph
-
-
 		//get user input for analysis
 		//possible analyses:
 		//		The number of nodes
@@ -47,6 +52,39 @@ public class MovieLensAnalyzer {
 		//		The diameter of the graph (i.e. the longest shortest path)
 		//		The average length of the shortest paths in the graph
 
+		///////////OPTION LOOP////////////////////////////////////////
+		Scanner scan = new Scanner(System.in);
+		int option =0;
+		while(option != 4) {
+			printOptions();
+			option = Integer.parseInt(scan.next());
+
+			switch(option){
+				case 1:
+					//print stats
+					break;
+
+				case 2:
+					//get input for node then print its info
+					System.out.println("Which node?");
+					int node = Integer.parseInt(scan.next());
+					System.out.println(movies.get(node));
+					break;
+
+				case 3:
+					//get input for 2 nodes then find shortest path
+					break;
+
+				case 4:
+					break;
+
+				default:
+					System.out.println("Invalid option.");
+					break;
+			}
+
+		}
+
 		//for Dijkstra's (option 3)
 			//get user input for start and end nodes
 			//run Dijkstra's
@@ -54,17 +92,24 @@ public class MovieLensAnalyzer {
 
 	}
 
+	private static void printOptions() {
+		System.out.println("[Option 1] Print out graph statistics");
+		System.out.println("[Option 2] Print node information");
+		System.out.println("[Option 3] Display shortest path between two nodes");
+		System.out.println("[Option 4] Quit");
+		System.out.println("Choose an option (1-4)\n");
+	}
+
 	/**
 	 * Takes a user choice for adjacency definition and creates a movie graph
 	 * @param choice
 	 * @return
 	 */
-	public static Graph<Integer> constructGraph(int choice, String movieFile, String reviewFile){
+	public static Graph<Integer> constructGraph(int choice, DataLoader loader){
 		//Load the data
-		DataLoader loader = new DataLoader();
-		loader.loadData(movieFile, reviewFile);
-		HashMap<Integer, Movie> movies = (HashMap)loader.getMovies(); //id to movie
-		HashMap<Integer, Reviewer> reviewers = (HashMap)loader.getReviewers(); //id to reviewer
+
+		HashMap<Integer, Movie> movies = (HashMap) loader.getMovies();
+		HashMap<Integer, Reviewer> reviewers = (HashMap) loader.getReviewers();
 
 		Graph<Integer> movieGraph = new Graph<>(); //Graph of movie ids
 
@@ -98,7 +143,9 @@ public class MovieLensAnalyzer {
 			}
 
 			//todo: IMPLEMENT ALL THE OTHER CHOICES
-
+		for(Integer v : movieGraph.getVertices()){
+			System.out.println(v);
+		}
 		return movieGraph;
 	}
 

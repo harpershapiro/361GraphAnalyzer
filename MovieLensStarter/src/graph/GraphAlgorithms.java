@@ -1,8 +1,11 @@
 package graph;
 import util.PriorityQueue;
 import util.Pair;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class GraphAlgorithms {
@@ -63,24 +66,29 @@ public class GraphAlgorithms {
      * @param source the starting vertex of the path
      * @return mapping of a vertex to its predecessor on shortest path from source
      */
-    public static HashMap<Integer, Integer> dijkstrasAlgorithm(Graph<Integer> graph, int source){
+    public static int[] dijkstrasAlgorithm(Graph<Integer> graph, int source){
+        int numVertices = graph.numVertices();
         PriorityQueue Q = new PriorityQueue();
-        HashMap<Integer,Integer> dist = new HashMap<>(); //stores best distance from s to another node
-        HashMap<Integer,Integer> prev = new HashMap<>(); //stores prev node on shortest path
+
+
+
+        int[] dist = new int[numVertices+1]; //stores best distance from s to another node
+        int[] prev = new int[numVertices+1]; //stores prev node on shortest path
         //int[] dist = new int[graph.numVertices()];
         //int[] prev = new int[graph.numVertices()];
 
         //Set all dists to infinity, all prevs to null
         for(Integer v : graph.getVertices()){
-            dist.put(v,Integer.MAX_VALUE);
-            prev.put(v,null); //-1 represents null (no path predecessor for vertex v yet)
+            System.out.println(v);
+            dist[v]=Integer.MAX_VALUE;
+            prev[v]=-1; //-1 represents null (no path predecessor for vertex v yet)
         }
 
-        dist.put(source,0); //starting node
+        dist[source]=0; //starting node
 
         for(Integer v : graph.getVertices()) {
-            System.out.println("Adding vertex " + v + " with priority " + dist.get(v));
-            Q.push(dist.get(v),v);
+            System.out.println("Adding vertex " + v + " with priority " + dist[v]);
+            Q.push(dist[v],v);
         }
 //
         Pair u; //stores current vertex
@@ -93,10 +101,10 @@ public class GraphAlgorithms {
 
             try {
                 for (Integer v : graph.getNeighbors(uElement)) {
-                  Integer alt = dist.get(uElement) + 1; // Is this better than what we've found so far? (weight from u to v is 1)
-                  if(alt < dist.get(v)){
-                      dist.put(v,alt);
-                      prev.put(v,uElement);
+                  Integer alt = dist[uElement] + 1; // Is this better than what we've found so far? (weight from u to v is 1)
+                  if(alt < dist[v]){
+                      dist[v]=alt;
+                      prev[v]=uElement;
                       Q.changePriority(alt, v);
                   }
                 }
@@ -111,21 +119,21 @@ public class GraphAlgorithms {
     public static void main(String[] args){
         //test algs
         Graph<Integer> dtest = new Graph<Integer>();
-        dtest.addVertex(5);
-        dtest.addVertex(16);
-        dtest.addVertex(12);
-        dtest.addVertex(8);
+        dtest.addVertex(1);
+        dtest.addVertex(2);
+        dtest.addVertex(3);
+        dtest.addVertex(4);
 
-        dtest.addEdge(5,16);
-        dtest.addEdge(16,12);
-        dtest.addEdge(12,8);
-        dtest.addEdge(5,8);
+        dtest.addEdge(1,2);
+        dtest.addEdge(2,3);
+        dtest.addEdge(3,4);
+        dtest.addEdge(1,4);
         //dtest.addEdge(16,8);
         //dtest.addEdge(8,12);
 
-        HashMap<Integer,Integer> prev = dijkstrasAlgorithm(dtest,5);
-        for(Integer v : prev.keySet()){
-            System.out.println("vertex: " + v + " previous: " + prev.get(v));
+        int[] prev = dijkstrasAlgorithm(dtest,1);
+        for(Integer v : dtest.getVertices()){
+            System.out.println("vertex: " + v + " previous: " + prev[v]);
         }
 
         int[][] dists = floydWarshall(dtest);
