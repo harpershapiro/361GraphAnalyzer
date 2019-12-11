@@ -10,7 +10,12 @@ import java.util.Scanner;
 
 
 /**
- * Please include in this comment you and your partner's name and describe any extra credit that you implement 
+ * This class takes in a set of movie titles and reviews and can create a graph from the data
+ * with multiple possible user-selected adjacency definitions. The user can then view information
+ * about the graph they chose to create.
+ * EXTRA CREDIT: TBD
+ * @author Bret Abel and Harper Shapiro
+ * @version 12/11/19
  */
 public class MovieLensAnalyzer {
 	
