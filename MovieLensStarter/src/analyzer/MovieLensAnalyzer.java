@@ -35,7 +35,7 @@ public class MovieLensAnalyzer {
 		HashMap<Integer, Movie> movies = (HashMap)loader.getMovies();
 
 
-		Graph<Integer> movieGraph = constructGraph(1,loader);
+		Graph<Integer> movieGraph = constructGraph(3,loader);
 		System.out.println("Graph Consctructed. It has " + movieGraph.numVertices() + " Vertices and " + movieGraph.numEdges() + " Edges.");
 
 
@@ -125,27 +125,62 @@ public class MovieLensAnalyzer {
 					//get the sets of reviewer ids for both movies
 					HashMap<Integer,Double> uReviews = (HashMap) (movies.get(u).getRatings());
 					HashMap<Integer,Double> vReviews = (HashMap) (movies.get(v).getRatings());
+					int totalMatches;
+					double threshold;
 
-					//count the number of matching reviewers in both movie's review sets
-					int totalMatches = 0;
-					for (Integer uReviewer : uReviews.keySet()) {
-						if (vReviews.containsKey(uReviewer)) {
-							totalMatches++;
-						}
-					}
+					switch(choice) {
+						case 1: //12 users gave same rating to both movies
+							//count the number of matching reviewers in both movie's review sets
+							totalMatches = 0;
+							for (Integer uReviewer : uReviews.keySet()) {
+								if (vReviews.containsKey(uReviewer)) {
+									if(uReviews.get(uReviewer)==vReviews.get(uReviewer))totalMatches++;
+								}
+							}
 
-					//add an edge if
-					if (totalMatches >= 12) {
-						movieGraph.addEdge(u, v);
-						movieGraph.addEdge(v, u);
+							//add an edge if same 12 users rated both movies same
+							if (totalMatches >= 12) {
+								movieGraph.addEdge(u, v);
+								movieGraph.addEdge(v, u);
+							}
+							break;
+
+						case 2: //12 users watched both movies
+							//count the number of matching reviewers in both movie's review sets
+							totalMatches = 0;
+							for (Integer uReviewer : uReviews.keySet()) {
+								if (vReviews.containsKey(uReviewer)) {
+									totalMatches++;
+								}
+							}
+
+							//add an edge if same 12 users rated both
+							if (totalMatches >= 12) {
+								movieGraph.addEdge(u, v);
+								movieGraph.addEdge(v, u);
+							}
+							break;
+
+						case 3: //33 percent of the users that watched u also watched v
+							//count the number of matching reviewers in both movie's review sets
+							totalMatches = 0;
+							threshold = 0.33*(uReviews.keySet().size());
+							for (Integer uReviewer : uReviews.keySet()) {
+								if (vReviews.containsKey(uReviewer)) {
+									totalMatches++;
+								}
+							}
+
+							//add an edge if same 12 users rated both
+							if (totalMatches >= threshold) {
+								movieGraph.addEdge(u, v);
+								movieGraph.addEdge(v, u);
+							}
+							break;
 					}
 				}
 			}
 
-			//todo: IMPLEMENT ALL THE OTHER CHOICES
-		for(Integer v : movieGraph.getVertices()){
-			System.out.println(v);
-		}
 		return movieGraph;
 	}
 
