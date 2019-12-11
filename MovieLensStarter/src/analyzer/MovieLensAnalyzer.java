@@ -26,6 +26,10 @@ public class MovieLensAnalyzer {
 		}*/
 
 		//todo: remove hardcode
+		//create graph structure adjList or adjMatrix
+		//get user input for graph options - DONE
+		//parse data files, filling graph
+
 		String movieFile = "src/ml-latest-small/movies.csv";
 		String reviewFile = "src/ml-latest-small/ratings.csv";
 
@@ -34,27 +38,27 @@ public class MovieLensAnalyzer {
 
 		HashMap<Integer, Movie> movies = (HashMap)loader.getMovies();
 
+		Graph<Integer> movieGraph = new Graph<>();
 
-		Graph<Integer> movieGraph = constructGraph(1,loader);
-		System.out.println("Graph Consctructed. It has " + movieGraph.numVertices() + " Vertices and " + movieGraph.numEdges() + " Edges.");
-
-
-		//todo:
-		//create graph structure adjList or adjMatrix
-		//get user input for graph options
-		//parse data files, filling graph
-		//get user input for analysis
-		//possible analyses:
-		//		The number of nodes
-		//		The number of edges
-		//		The density of the graph defined as D = E / (V*(V-1)) for a directed graph
-		//		The maximum degree (i.e. the largest number of outgoing edges of any node)
-		//		The diameter of the graph (i.e. the longest shortest path)
-		//		The average length of the shortest paths in the graph
-
-		///////////OPTION LOOP////////////////////////////////////////
+		///////////ADJACENCY DEF LOOP///////////////////////////////////
 		Scanner scan = new Scanner(System.in);
 		int option =0;
+
+		while(movieGraph.numVertices() == 0) {
+			printAdjOptions();
+			option = Integer.parseInt(scan.next());
+			if (option > 0 && option < 4) {
+				movieGraph = constructGraph(option, loader);
+			} else if (option == 4) {
+				System.exit(0);
+			} else {
+				System.out.println("Invalid option.");
+			}
+		}
+		System.out.println("Graph Constructed. It has " + movieGraph.numVertices() + " Vertices and " + movieGraph.numEdges() + " Edges.");
+
+		///////////OPTION LOOP////////////////////////////////////////
+		option =0;
 		while(option != 4) {
 			printOptions();
 			option = Integer.parseInt(scan.next());
@@ -96,6 +100,13 @@ public class MovieLensAnalyzer {
 			//run Dijkstra's
 			//print out entire shortest path
 
+	}
+
+	private static void printAdjOptions() {
+		System.out.println("[Option 1] u and v are adjacent if the same 12 users gave the same rating to both movies");
+		System.out.println("[Option 2] u and v are adjacent if the same 12 users watched both movies (regardless of rating)");
+		System.out.println("[Option 3] u is adjacent to v if at least 33.0% of the users that rated u gave the same rating to v");
+		System.out.println("[Option 4] Quit");
 	}
 
 	private static void printOptions() {
