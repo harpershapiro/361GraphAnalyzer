@@ -61,7 +61,7 @@ public class MovieLensAnalyzer {
 
 			switch(option){
 				case 1:
-					//print stats
+					printStats(movieGraph);
 					break;
 
 				case 2:
@@ -191,7 +191,62 @@ public class MovieLensAnalyzer {
 		return movieGraph;
 	}
 
-	public static void printStats(){
+	/**
+	 * Prints statistics about the movie graph.
+	 * @param movieGraph the movie graph
+	 */
+	public static void printStats(Graph<Integer> movieGraph){
+		System.out.println("Graph statistics:");
+
+		//  number of nodes
+		int nodes = movieGraph.numVertices();
+		System.out.println("Number of nodes: " + nodes);
+
+		//  number of edges
+		int edges = movieGraph.numEdges();
+		System.out.println("Number of edges: " + edges);
+
+		//  density of the graph defined as D = E / (V*(V-1)) for directed graph
+		int density = edges / (nodes * (nodes - 1));
+		System.out.println("Graph density: " + density);
+
+		// maximum degree
+		int maxDegree = 0;
+		int curDegree = 0;
+		try {
+			for (Integer movie : movieGraph.getVertices()){
+				curDegree = movieGraph.degree(movie);
+				maxDegree = (maxDegree > curDegree) ? maxDegree : curDegree;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Max degree: " + maxDegree);
+
+		// Flloyd-Warshall shortest paths
+		int[][] paths = GraphAlgorithms.floydWarshall(movieGraph);
+
+		//  diameter of the graph (longest shortest path)
+		//  average length of shortest paths
+		//  doing them together to avoid redundant nested for loops
+		int diameter = 0;
+		int sum = 0;
+		int counter = 0;
+		// Infinity token to match the Flloyd-Warshall implementation in GraphAlgorithms
+		int FW_INF_TOKEN = 99999;
+		for (int i = 0; i < nodes; i++){
+			for (int j = 0; j < nodes; j++){
+				if (paths[i][j] < FW_INF_TOKEN) {
+					diameter = (diameter > paths[i][j]) ? diameter : paths[i][j];
+					sum += paths[i][j];
+					counter++;
+				}
+			}
+		}
+		int average = sum / counter;
+		System.out.println("Diameter: " + diameter);
+		System.out.println("Average shortest path length: " + average);
+
 		return;
 	}
 

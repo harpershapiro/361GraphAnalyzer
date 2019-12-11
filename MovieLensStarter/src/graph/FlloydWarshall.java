@@ -31,7 +31,7 @@ public class FlloydWarshall {
 				for (Integer u : graph.getVertices()) {
 					if (graph.edgeExists(v,u)) {
 						dist[src][dest] = 1;
-						dist[dest][src] = 1;
+						//dist[dest][src] = 1;
 					}
 					dest++;
 				}

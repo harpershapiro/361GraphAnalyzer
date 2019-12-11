@@ -37,7 +37,6 @@ public class GraphAlgorithms {
                 for (Integer u : graph.getVertices()) {
                     if (graph.edgeExists(v,u)) {
                         dist[src][dest] = 1;
-                        dist[dest][src] = 1; // ignores direction in graph, every edge reciprocated
                     }
                     dest++;
                 }
