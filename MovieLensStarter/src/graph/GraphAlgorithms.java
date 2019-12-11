@@ -79,7 +79,7 @@ public class GraphAlgorithms {
 
         //Set all dists to infinity, all prevs to null
         for(Integer v : graph.getVertices()){
-            System.out.println(v);
+            //3System.out.println(v);
             dist[v]=Integer.MAX_VALUE;
             prev[v]=-1; //-1 represents null (no path predecessor for vertex v yet)
         }
@@ -87,7 +87,7 @@ public class GraphAlgorithms {
         dist[source]=0; //starting node
 
         for(Integer v : graph.getVertices()) {
-            System.out.println("Adding vertex " + v + " with priority " + dist[v]);
+            //System.out.println("Adding vertex " + v + " with priority " + dist[v]);
             Q.push(dist[v],v);
         }
 //
@@ -101,10 +101,18 @@ public class GraphAlgorithms {
 
             try {
                 for (Integer v : graph.getNeighbors(uElement)) {
-                  Integer alt = dist[uElement] + 1; // Is this better than what we've found so far? (weight from u to v is 1)
-                  if(alt < dist[v]){
+                    Integer alt;
+                    //do some error checking with MAX_VALUE
+                    if(dist[uElement]!=Integer.MAX_VALUE){
+                        alt = dist[uElement] + 1; // Is this better than what we've found so far? (weight from u to v is 1)
+                    } else {
+                        alt = dist[uElement];
+                    }
+                    if(alt < dist[v]){
+                      //System.out.println("Alt was better at" + v);
                       dist[v]=alt;
                       prev[v]=uElement;
+                      //System.out.println("Changing priority to " + alt);
                       Q.changePriority(alt, v);
                   }
                 }

@@ -3,9 +3,9 @@ import data.Movie;
 import data.Reviewer;
 import graph.Graph;
 import util.DataLoader;
+import graph.GraphAlgorithms;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
 
@@ -35,7 +35,7 @@ public class MovieLensAnalyzer {
 		HashMap<Integer, Movie> movies = (HashMap)loader.getMovies();
 
 
-		Graph<Integer> movieGraph = constructGraph(3,loader);
+		Graph<Integer> movieGraph = constructGraph(1,loader);
 		System.out.println("Graph Consctructed. It has " + movieGraph.numVertices() + " Vertices and " + movieGraph.numEdges() + " Edges.");
 
 
@@ -73,6 +73,12 @@ public class MovieLensAnalyzer {
 
 				case 3:
 					//get input for 2 nodes then find shortest path
+					System.out.println("Which source?");
+					int source = Integer.parseInt(scan.next());
+					System.out.println("Which destination?");
+					int dest = Integer.parseInt(scan.next());
+					int[] paths = GraphAlgorithms.dijkstrasAlgorithm(movieGraph,source);
+					printPath(paths,dest);
 					break;
 
 				case 4:
@@ -133,13 +139,14 @@ public class MovieLensAnalyzer {
 							//count the number of matching reviewers in both movie's review sets
 							totalMatches = 0;
 							for (Integer uReviewer : uReviews.keySet()) {
-								if (vReviews.containsKey(uReviewer)) {
-									if(uReviews.get(uReviewer)==vReviews.get(uReviewer))totalMatches++;
+								if (vReviews.containsKey(uReviewer) && v!=u) {
+									if(uReviews.get(uReviewer).equals(vReviews.get(uReviewer)))totalMatches++;
 								}
 							}
 
 							//add an edge if same 12 users rated both movies same
 							if (totalMatches >= 12) {
+								//System.out.println("Added edge from "+ u + " to "+ v);
 								movieGraph.addEdge(u, v);
 								movieGraph.addEdge(v, u);
 							}
@@ -149,7 +156,7 @@ public class MovieLensAnalyzer {
 							//count the number of matching reviewers in both movie's review sets
 							totalMatches = 0;
 							for (Integer uReviewer : uReviews.keySet()) {
-								if (vReviews.containsKey(uReviewer)) {
+								if (vReviews.containsKey(uReviewer) && v!=u) {
 									totalMatches++;
 								}
 							}
@@ -166,7 +173,7 @@ public class MovieLensAnalyzer {
 							totalMatches = 0;
 							threshold = 0.33*(uReviews.keySet().size());
 							for (Integer uReviewer : uReviews.keySet()) {
-								if (vReviews.containsKey(uReviewer)) {
+								if (vReviews.containsKey(uReviewer) && v!=u) {
 									totalMatches++;
 								}
 							}
@@ -186,5 +193,25 @@ public class MovieLensAnalyzer {
 
 	public static void printStats(){
 		return;
+	}
+
+	/**
+	 * Print shortest path based on dijkstra's output and a destination node
+	 * @param paths
+	 * @param dest
+	 */
+	public static void printPath(int[] paths, int dest){
+		System.out.print(dest);
+		int prevNode = paths[dest];
+		if(prevNode==-1){
+			System.out.println("No path to " + dest + " was found.");
+			return;
+		}
+		do{
+			System.out.print( "<-" + prevNode);
+			prevNode = paths[prevNode];
+		} while(prevNode>0);
+		System.out.println("");
+
 	}
 }
