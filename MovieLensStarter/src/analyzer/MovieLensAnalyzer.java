@@ -272,13 +272,13 @@ public class MovieLensAnalyzer {
 	 * @param dest
 	 */
 	public static void printPath(int[] paths, int dest){
-		System.out.print(dest);
 		int prevNode = paths[dest];
 		if(prevNode==-1){
-			System.out.println("No path to " + dest + " was found.");
+			System.out.println("\nNo path to " + dest + " was found.");
 			return;
 		}
-		do{
+        System.out.print(dest);
+        do{
 			System.out.print( "<-" + prevNode);
 			prevNode = paths[prevNode];
 		} while(prevNode>0);
