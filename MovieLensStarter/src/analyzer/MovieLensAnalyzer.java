@@ -14,30 +14,31 @@ import java.util.Scanner;
  * This class takes in a set of movie titles and reviews and can create a graph from the data
  * with multiple possible user-selected adjacency definitions. The user can then view information
  * about the graph they chose to create.
- * EXTRA CREDIT: Search for movies by name
+ * EXTRA CREDIT: Search for movies by name, extra adjacency defintions
  * @author Bret Abel and Harper Shapiro
  * @version 12/11/19
  */
 public class MovieLensAnalyzer {
 	
 	public static void main(String[] args){
-		// Your program should take two command-line arguments: 
+		// Takes two command-line arguments:
 		// 1. A ratings file
 		// 2. A movies file with information on each movie e.g. the title and genres
 
 
-		/**
-		 * if(args.length != 2){
-		 * 			System.err.println("Usage: java MovieLensAnalyzer [ratings_file] [movie_title_file]");
-		 * 			System.exit(-1);
-		 *                }
-		 */
+        if(args.length != 2){
+		  			System.err.println("Usage: java MovieLensAnalyzer [ratings_file] [movie_title_file]");
+		  			System.exit(-1);
+            }
+
 
 
 		//parse data files, filling graph
 
-		String movieFile = "src/ml-latest-small/movies.csv";
-		String reviewFile = "src/ml-latest-small/ratings.csv";
+		String movieFile = args[0];        //"src/ml-latest-small/movies.csv";
+		String reviewFile = args[1];           //"src/ml-latest-small/ratings.csv";
+
+        System.out.println("Loading "+ movieFile+ "...\nLoading " + reviewFile + "...");
 
 		DataLoader loader = new DataLoader();
 		loader.loadData(movieFile, reviewFile);
