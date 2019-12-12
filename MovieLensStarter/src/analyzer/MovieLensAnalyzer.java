@@ -6,6 +6,7 @@ import util.DataLoader;
 import graph.GraphAlgorithms;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * This class takes in a set of movie titles and reviews and can create a graph from the data
  * with multiple possible user-selected adjacency definitions. The user can then view information
  * about the graph they chose to create.
- * EXTRA CREDIT: TBD
+ * EXTRA CREDIT: Search for movies by name
  * @author Bret Abel and Harper Shapiro
  * @version 12/11/19
  */
@@ -25,10 +26,13 @@ public class MovieLensAnalyzer {
 		// 2. A movies file with information on each movie e.g. the title and genres
 
 
-		if(args.length != 2){
-			System.err.println("Usage: java MovieLensAnalyzer [ratings_file] [movie_title_file]");
-			System.exit(-1);
-		}
+		/**
+		 * if(args.length != 2){
+		 * 			System.err.println("Usage: java MovieLensAnalyzer [ratings_file] [movie_title_file]");
+		 * 			System.exit(-1);
+		 *                }
+		 */
+
 
 		//parse data files, filling graph
 
@@ -43,7 +47,7 @@ public class MovieLensAnalyzer {
 		Graph<Integer> movieGraph = new Graph<>();
 
 		///////////ADJACENCY DEF LOOP///////////////////////////////////
-		Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in).useDelimiter("\n");
 		int option =0;
 
 		while(movieGraph.numVertices() == 0) {
@@ -61,7 +65,7 @@ public class MovieLensAnalyzer {
 
 		///////////OPTION LOOP////////////////////////////////////////
 		option =0;
-		while(option != 4) {
+		while(option != 5) {
 			printOptions();
 			option = Integer.parseInt(scan.next());
 
@@ -88,6 +92,30 @@ public class MovieLensAnalyzer {
 					break;
 
 				case 4:
+					// Searching for a movie by title
+					System.out.println("Enter a title to search for:");
+					String query = scan.next();
+					query = query.toLowerCase();
+					String title;
+					HashMap<Integer, Movie> matches = new HashMap<>();
+					for (Map.Entry<Integer, Movie> movie : movies.entrySet()) {
+						title = movie.getValue().getTitle().toLowerCase();
+						if (title.contains(query)) {
+							matches.put(movie.getKey(), movie.getValue());
+						}
+					}
+					if (matches.isEmpty()) {
+						System.out.println("No titles found containing that phrase.\n");
+					} else {
+						System.out.println("The search returned these results:");
+						System.out.println("(Node numbers are in parentheses)");
+						for (Integer location : matches.keySet()) {
+							System.out.println(matches.get(location));
+						}
+					}
+					break;
+
+				case 5:
 					//quit
 					break;
 
@@ -102,6 +130,7 @@ public class MovieLensAnalyzer {
 
 	//options to construct graph
 	private static void printAdjOptions() {
+		System.out.println("Please select an option to construct the graph:");
 		System.out.println("[Option 1] u and v are adjacent if the same 12 users gave the same rating to both movies");
 		System.out.println("[Option 2] u and v are adjacent if the same 12 users watched both movies (regardless of rating)");
 		System.out.println("[Option 3] u is adjacent to v if at least 33.0% of the users that rated u gave the same rating to v");
@@ -113,8 +142,9 @@ public class MovieLensAnalyzer {
 		System.out.println("[Option 1] Print out graph statistics");
 		System.out.println("[Option 2] Print node information");
 		System.out.println("[Option 3] Display shortest path between two nodes");
-		System.out.println("[Option 4] Quit");
-		System.out.println("Choose an option (1-4)\n");
+		System.out.println("[Option 4] Search for node by movie title");
+		System.out.println("[Option 5] Quit");
+		System.out.println("Choose an option (1-5)\n");
 	}
 
 	/**
@@ -218,7 +248,7 @@ public class MovieLensAnalyzer {
 		System.out.println("Number of edges: " + edges);
 
 		//  density of the graph defined as D = E / (V*(V-1)) for directed graph
-		int density = edges / (nodes * (nodes - 1));
+		double density = (double) edges / (double) (nodes * (nodes - 1));
 		System.out.println("Graph density: " + density);
 
 		// maximum degree
