@@ -70,31 +70,28 @@ public class GraphAlgorithms {
         PriorityQueue Q = new PriorityQueue();
 
 
-
         int[] dist = new int[numVertices+1]; //stores best distance from s to another node
         int[] prev = new int[numVertices+1]; //stores prev node on shortest path
-        //int[] dist = new int[graph.numVertices()];
-        //int[] prev = new int[graph.numVertices()];
 
-        //Set all dists to infinity, all prevs to null
+        //Set all dists to infinity, all prevs to -1
         for(Integer v : graph.getVertices()){
-            //3System.out.println(v);
             dist[v]=Integer.MAX_VALUE;
             prev[v]=-1; //-1 represents null (no path predecessor for vertex v yet)
         }
 
         dist[source]=0; //starting node
 
+        //queue up all nodes
         for(Integer v : graph.getVertices()) {
-            //System.out.println("Adding vertex " + v + " with priority " + dist[v]);
             Q.push(dist[v],v);
         }
 //
-        Pair u; //stores current vertex
+        //stores current node and its element
+        Pair u;
         Integer uElement;
 
         while(!Q.isEmpty()){
-            u = Q.pop();  //shortest distance to u
+            u = Q.pop();  //shortest distance to u found
             uElement = (Integer)u.element;
 
 
@@ -103,15 +100,13 @@ public class GraphAlgorithms {
                     Integer alt;
                     //do some error checking with MAX_VALUE
                     if(dist[uElement]!=Integer.MAX_VALUE){
-                        alt = dist[uElement] + 1; // Is this better than what we've found so far? (weight from u to v is 1)
+                        alt = dist[uElement] + 1; //(weight from u to v is 1)
                     } else {
                         alt = dist[uElement];
                     }
-                    if(alt < dist[v]){
-                      //System.out.println("Alt was better at" + v);
+                    if(alt < dist[v]){  // Is this better than what we've found so far?
                       dist[v]=alt;
                       prev[v]=uElement;
-                      //System.out.println("Changing priority to " + alt);
                       Q.changePriority(alt, v);
                   }
                 }

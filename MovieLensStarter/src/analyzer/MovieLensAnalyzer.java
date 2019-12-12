@@ -24,15 +24,12 @@ public class MovieLensAnalyzer {
 		// 1. A ratings file
 		// 2. A movies file with information on each movie e.g. the title and genres
 
-		/*
+
 		if(args.length != 2){
 			System.err.println("Usage: java MovieLensAnalyzer [ratings_file] [movie_title_file]");
 			System.exit(-1);
-		}*/
+		}
 
-		//todo: remove hardcode
-		//create graph structure adjList or adjMatrix
-		//get user input for graph options - DONE
 		//parse data files, filling graph
 
 		String movieFile = "src/ml-latest-small/movies.csv";
@@ -91,6 +88,7 @@ public class MovieLensAnalyzer {
 					break;
 
 				case 4:
+					//quit
 					break;
 
 				default:
@@ -100,13 +98,9 @@ public class MovieLensAnalyzer {
 
 		}
 
-		//for Dijkstra's (option 3)
-			//get user input for start and end nodes
-			//run Dijkstra's
-			//print out entire shortest path
-
 	}
 
+	//options to construct graph
 	private static void printAdjOptions() {
 		System.out.println("[Option 1] u and v are adjacent if the same 12 users gave the same rating to both movies");
 		System.out.println("[Option 2] u and v are adjacent if the same 12 users watched both movies (regardless of rating)");
@@ -114,6 +108,7 @@ public class MovieLensAnalyzer {
 		System.out.println("[Option 4] Quit");
 	}
 
+	//options to interact with graph
 	private static void printOptions() {
 		System.out.println("[Option 1] Print out graph statistics");
 		System.out.println("[Option 2] Print node information");
@@ -124,8 +119,8 @@ public class MovieLensAnalyzer {
 
 	/**
 	 * Takes a user choice for adjacency definition and creates a movie graph
-	 * @param choice
-	 * @return
+	 * @param choice one of three options for adjacency
+	 * @return the new graph from the loaded data
 	 */
 	public static Graph<Integer> constructGraph(int choice, DataLoader loader){
 		//Load the data
@@ -267,9 +262,9 @@ public class MovieLensAnalyzer {
 	}
 
 	/**
-	 * Print shortest path based on dijkstra's output and a destination node
-	 * @param paths
-	 * @param dest
+	 * Print shortest path to a destination node
+	 * @param paths output from Dijkstra's on a source node
+	 * @param dest node to find a path to
 	 */
 	public static void printPath(int[] paths, int dest){
 		int prevNode = paths[dest];
@@ -282,7 +277,7 @@ public class MovieLensAnalyzer {
 			System.out.print( "<-" + prevNode);
 			prevNode = paths[prevNode];
 		} while(prevNode>0);
-		System.out.println("");
+		System.out.println();
 
 	}
 }
