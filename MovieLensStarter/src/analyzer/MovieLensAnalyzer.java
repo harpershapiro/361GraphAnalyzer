@@ -53,9 +53,9 @@ public class MovieLensAnalyzer {
 		while(movieGraph.numVertices() == 0) {
 			printAdjOptions();
 			option = Integer.parseInt(scan.next());
-			if (option > 0 && option < 4) {
+			if (option > 0 && option < 5) {
 				movieGraph = constructGraph(option, loader);
-			} else if (option == 4) {
+			} else if (option == 5) {
 				System.exit(0);
 			} else {
 				System.out.println("Invalid option.");
@@ -133,8 +133,9 @@ public class MovieLensAnalyzer {
 		System.out.println("Please select an option to construct the graph:");
 		System.out.println("[Option 1] u and v are adjacent if the same 12 users gave the same rating to both movies");
 		System.out.println("[Option 2] u and v are adjacent if the same 12 users watched both movies (regardless of rating)");
-		System.out.println("[Option 3] u is adjacent to v if at least 33.0% of the users that rated u gave the same rating to v");
-		System.out.println("[Option 4] Quit");
+		System.out.println("[Option 3] u and v are adjacent if at least 33.0% of the users that rated u gave the same rating to v");
+		System.out.println("[Option 4] u and v are adjacent if they have identical genres");
+		System.out.println("[Option 5] Quit");
 	}
 
 	//options to interact with graph
@@ -225,6 +226,14 @@ public class MovieLensAnalyzer {
 								movieGraph.addEdge(v, u);
 							}
 							break;
+
+                        case 4: //both movies have the same genres
+                            if(movies.get(u).getGenres().equals(movies.get(v).getGenres()) && u!=v){
+                                movieGraph.addEdge(u,v);
+                                movieGraph.addEdge(v,u);
+                            }
+                            break;
+
 					}
 				}
 			}
@@ -286,7 +295,7 @@ public class MovieLensAnalyzer {
 		}
 		int average = sum / counter;
 		System.out.println("Diameter: " + diameter);
-		System.out.println("Average shortest path length: " + average);
+		System.out.println("Average shortest path length: " + average + "\n");
 
 		return;
 	}
